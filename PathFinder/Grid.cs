@@ -43,10 +43,11 @@ namespace PathFinder
         {
             for (int y = 0; y < grid.GetUpperBound(1); y++)
                 for (int x = 0; x < grid.GetUpperBound(0); x++)
-                    grid[x, y] = 10;
+                    grid[x, y] = 0;
 
             sPoint = Point.Empty;
             ePoint = Point.Empty;
+            this.Invalidate();
         }
         public void SetPoint()
         {
@@ -89,26 +90,20 @@ namespace PathFinder
 
 
         }
-
-        
-        
-
-        private void Grid_Paint(object sender, PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            grid[sPoint.X, sPoint.Y] = 1;
-            grid[ePoint.X, ePoint.Y] = 2;
             Graphics g = e.Graphics;
             try
             {
-                for (int y = e.ClipRectangle.Y ; y < e.ClipRectangle.Bottom; y += gridSize)
+                for (int y = e.ClipRectangle.Y; y < e.ClipRectangle.Bottom; y += gridSize)
                 {
-                    for (int x =e.ClipRectangle.X ; x < e.ClipRectangle.Right; x += gridSize)
+                    for (int x = e.ClipRectangle.X; x < e.ClipRectangle.Right; x += gridSize)
                     {
 
                         int sx = x / gridSize;
                         int sy = y / gridSize;
                         Color color = Color.Empty;
-                        switch (grid[sx,sy])
+                        switch (grid[sx, sy])
                         {
                             case -1:
                                 color = Color.Black;
@@ -131,11 +126,11 @@ namespace PathFinder
                             case 32:
                                 color = Color.Blue;
                                 break;
-                            
+
                         }
                         using (SolidBrush brush = new SolidBrush(color))
                         {
-                            g.FillRectangle(brush, x,y, gridSize, gridSize);
+                            g.FillRectangle(brush, x, y, gridSize, gridSize);
                         }
                     }
 
@@ -152,7 +147,7 @@ namespace PathFinder
             using (Pen pen = new Pen(c))
             {
 
-                for (int y = (e.ClipRectangle.Y/gridSize)*gridSize ; y < e.ClipRectangle.Bottom + gridSize;  y += gridSize)
+                for (int y = (e.ClipRectangle.Y / gridSize) * gridSize; y < e.ClipRectangle.Bottom + gridSize; y += gridSize)
                 {
                     g.DrawLine(pen, e.ClipRectangle.X, y, e.ClipRectangle.Right, y);
                 }
@@ -162,50 +157,12 @@ namespace PathFinder
                 }
 
             }
-
+            base.OnPaint(e);
         }
 
-        private void Grid_Load(object sender, EventArgs e)
+        protected override void OnMouseMove(MouseEventArgs e)
         {
-            
-
-        }
-
-        private void Grid_MouseDown(object sender, MouseEventArgs e)
-        {
-            //int x = e.X / gridSize;
-            //int y = e.Y / gridSize;
-
-            //switch (drawMode)
-            //{
-            //    case DrawModeSetup.Start:
-            //        grid[sPoint.X, sPoint.Y] = 0;
-            //        this.Invalidate(new Rectangle(sPoint.X * gridSize, sPoint.Y * gridSize, gridSize, gridSize));
-            //        sPoint = new Point(x, y);
-            //        grid[x, y] = 1;
-            //        break;
-            //    case DrawModeSetup.End:
-            //        grid[sPoint.X, sPoint.Y] = 0;
-            //        this.Invalidate(new Rectangle(ePoint.X * gridSize, ePoint.Y * gridSize, gridSize, gridSize));
-            //        ePoint = new Point(x, y);
-            //        grid[x, y] = 2;
-            //        break;
-            //    case DrawModeSetup.Block:
-            //        this.Invalidate(new Rectangle(ePoint.X * gridSize, ePoint.Y * gridSize, gridSize, gridSize));
-            //        //ePoint = new Point(x, y);
-            //        grid[x, y] = -1;
-            //        break;
-            //}
-            //this.Invalidate(new Rectangle(x * gridSize, y * gridSize, gridSize, gridSize));
-
-
-            this.OnMouseMove(e);
-            //base.OnMouseDown(e);
-        }
-
-        private void Grid_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.None|| drawMode == DrawModeSetup.None)
+            if (e.Button == MouseButtons.None || drawMode == DrawModeSetup.None)
                 return;
 
             int x = e.X / gridSize;
@@ -226,17 +183,102 @@ namespace PathFinder
                     grid[x, y] = 2;
                     break;
                 case DrawModeSetup.Block:
-                    this.Invalidate(new Rectangle(ePoint.X * gridSize, ePoint.Y * gridSize, gridSize, gridSize));
-                    //ePoint = new Point(x, y);
                     grid[x, y] = -1;
                     break;
+                case DrawModeSetup.None:
+                    //this.Invalidate(new Rectangle(ePoint.X * gridSize, ePoint.Y * gridSize, gridSize, gridSize));
+                    //ePoint = new Point(x, y);
+                    grid[x, y] = 0;
+                    break;
             }
+            //e.Button = MouseButtons.None;
             this.Invalidate(new Rectangle(x * gridSize, y * gridSize, gridSize, gridSize));
-
-
-            
-            
             base.OnMouseMove(e);
         }
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            this.OnMouseMove(e);
+            base.OnMouseDown(e);
+        }
+
+        //private void Grid_Paint(object sender, PaintEventArgs e)
+        //{
+        //    grid[sPoint.X, sPoint.Y] = 1;
+        //    grid[ePoint.X, ePoint.Y] = 2;
+        //    Graphics g = e.Graphics;
+        //    try
+        //    {
+        //        for (int y = e.ClipRectangle.Y ; y < e.ClipRectangle.Bottom; y += gridSize)
+        //        {
+        //            for (int x =e.ClipRectangle.X ; x < e.ClipRectangle.Right; x += gridSize)
+        //            {
+
+        //                int sx = x / gridSize;
+        //                int sy = y / gridSize;
+        //                Color color = Color.Empty;
+        //                switch (grid[sx,sy])
+        //                {
+        //                    case -1:
+        //                        color = Color.Black;
+        //                        break;
+        //                    case 1:
+        //                        color = Color.Green;
+        //                        break;
+        //                    case 2:
+        //                        color = Color.Red;
+        //                        break;
+        //                    case 4:
+        //                        color = Color.Gray;
+        //                        break;
+        //                    case 8:
+        //                        color = Color.DarkSlateBlue;
+        //                        break;
+        //                    case 16:
+        //                        color = Color.Red;
+        //                        break;
+        //                    case 32:
+        //                        color = Color.Blue;
+        //                        break;
+
+        //                }
+        //                using (SolidBrush brush = new SolidBrush(color))
+        //                {
+        //                    g.FillRectangle(brush, x,y, gridSize, gridSize);
+        //                }
+        //            }
+
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw new Exception("Blogai");
+        //    }
+
+
+        //    Color c = Color.Black;
+        //    using (Pen pen = new Pen(c))
+        //    {
+
+        //        for (int y = (e.ClipRectangle.Y/gridSize)*gridSize ; y < e.ClipRectangle.Bottom + gridSize;  y += gridSize)
+        //        {
+        //            g.DrawLine(pen, e.ClipRectangle.X, y, e.ClipRectangle.Right, y);
+        //        }
+        //        for (int x = (e.ClipRectangle.X / gridSize) * gridSize; x <= e.ClipRectangle.Right + gridSize; x += gridSize)
+        //        {
+        //            g.DrawLine(pen, x, e.ClipRectangle.Y, x, e.ClipRectangle.Bottom);
+        //        }
+
+        //    }
+
+        //}
+
+        private void Grid_Load(object sender, EventArgs e)
+        {
+            
+
+        }
+
+       
     }
 }

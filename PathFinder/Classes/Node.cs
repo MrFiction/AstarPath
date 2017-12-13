@@ -13,12 +13,18 @@ namespace PathFinder
         public static int heuristicsMult { get; set; }
         public static Point startPosition { get; private set; }
         public static Point endPosition { get; private set; }
-        public Point position { get; private set;}
+        public Point position { get; set;}
         public Node parentNode { get; private set; }
         public int G { get; private set; }
         public int H { get; private set; }
         public int F { get; private set; }
-        
+
+        public Node(Point position, int g)
+        {
+            this.position = position;
+            this.parentNode = null;
+
+        }
         public Node(Point position, Node parentNode, int g)
         {
             this.position = position;
@@ -40,7 +46,7 @@ namespace PathFinder
         {
             unchecked
             {
-                int result = 33;
+                int result = 17;
                 result = 37 * result + position.X;
                 result = 37 * result + position.Y;
                 return result;

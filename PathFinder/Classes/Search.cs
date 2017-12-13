@@ -19,25 +19,28 @@ namespace PathFinder
     public class Search
     {
         public static int gridSize { get; private set; }
-        bool[,] grid = null;
+        sbyte[,] grid = null;
         byte[] travelCost = new byte[] { 10, 14 };
         IDictionary<int, Node> closedList = new Dictionary<int, Node>();
         IDictionary<int, Node> openList = new Dictionary<int, Node>();
+        public Node startingNode = new Node(Node.startPosition, 0);
+        public Node endNode = new Node(Node.endPosition, 0);
         //SortedSet<Node> openList = new SortedSet<Node>(Node.SortByFullThenByHeuristics());
         //LinkedList<Node> openList = new LinkedList<Node>();
-        public Search(bool[,] _grid, int _gridSize)
+        public Search(sbyte[,] _grid, int _gridSize)
         {
             gridSize = _gridSize;
             grid = _grid;
         }
-        public Search(bool[,] _grid, int _gridSize, byte[] _travelCost)
+        public Search(sbyte[,] _grid, int _gridSize, byte[] _travelCost)
         {
             gridSize = _gridSize;
             grid = _grid;
             travelCost = _travelCost;
         }
-        public void findPath(Node startingNode, Node endNode)
+        public void findPath()
         {
+           
             Node currentNode;
             openList.Add(startingNode.GetHashCode(), startingNode);
             while (openList.Count > 0)
@@ -58,17 +61,17 @@ namespace PathFinder
                     Point newNodePos = new Point(currentNode.position.X + direction[i, 0], currentNode.position.Y + direction[i, 1]);
 
                     //outside the grid
-                    if (newNodePos.X < 0 && newNodePos.Y < 0 && newNodePos.X > gridSize && newNodePos.Y > gridSize)
+                    if (newNodePos.X < 0 || newNodePos.Y < 0 || newNodePos.X > gridSize || newNodePos.Y > gridSize)
                     {
                         continue;
                     }
                     //A wall(not walkable)
-                    if (grid[newNodePos.X, newNodePos.Y] == true)
+                    if (grid[newNodePos.X, newNodePos.Y] == -1)
                     {
                         continue;
                     }
                     //fount the parent node
-                    if (newNodePos.Equals(currentNode.parentNode.position))
+                    if (currentNode.parentNode!= null && newNodePos.Equals(currentNode.parentNode.position))
                     {
                         continue;
                     }
@@ -79,10 +82,12 @@ namespace PathFinder
                     }
                     Node newNode = new Node(newNodePos, currentNode, currentNode.G + travelCost[i % 2]);
                     //Checks the open list for nodes with the same position and returns null if nothing is found
+                    int tt = newNode.GetHashCode();
                     if (openList.ContainsKey(newNode.GetHashCode()))
                     {
                         //Changes an old node(if G > this.G)
-                        if (openList[GetHashCode()].G > newNode.G)
+                        Node t = openList[newNode.GetHashCode()];
+                        if (t.G > newNode.G)
                         {
                             openList[GetHashCode()] = newNode;
                         }

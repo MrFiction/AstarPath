@@ -36,9 +36,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "Grid";
             this.Load += new System.EventHandler(this.Grid_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid_Paint);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Grid_MouseMove);
             this.ResumeLayout(false);
 
         }

@@ -25,6 +25,8 @@ namespace PathFinder
         }
         public void RunPathFinder()
         {
+            Node.startPosition = grid2.sPoint;
+            Node.endPosition = grid2.ePoint;
             Search aPath = new Search(grid2.grid,grid2.gridSize);
             //if (!(mPathFinder is PathFinderFast))
             //{
@@ -49,8 +51,7 @@ namespace PathFinder
 
                 //List<PathFinderNode> path = mPathFinder.FindPath(PnlGUI.Start, PnlGUI.End);
                 //UpdateTimeLabel(mPathFinder.CompletedTime);
-                aPath.startingNode.position = grid2.sPoint;
-            aPath.endNode.position = grid2.ePoint;
+            
             aPath.findPath();
             if (aPath.endNode == null)
                 MessageBox.Show("Path Not Found");

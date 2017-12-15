@@ -11,8 +11,8 @@ namespace PathFinder
     public class Node
     {
         public static int heuristicsMult { get; set; }
-        public static Point startPosition { get; private set; }
-        public static Point endPosition { get; private set; }
+        public static Point startPosition { get;  set; }
+        public static Point endPosition { get; set; }
         public Point position { get; set;}
         public Node parentNode { get; private set; }
         public int G { get; private set; }
@@ -40,7 +40,7 @@ namespace PathFinder
             int d2 = 14;
             int dx = Math.Abs(position.X - endPosition.X);
             int dy = Math.Abs(position.Y - endPosition.Y);
-            return d * (dx + dy) + (d2 - 2 * d2) * Math.Min(dx, dy) * heuristicsMult;
+            return (d * (dx + dy) + (d2 - 2 * d) * Math.Min(dx, dy)) * heuristicsMult;
         }
         public override int GetHashCode()
         {

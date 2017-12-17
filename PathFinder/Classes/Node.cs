@@ -31,7 +31,7 @@ namespace PathFinder
             this.parentNode = parentNode;
             G = parentNode.G + g;
             H = HeuristicValue();
-            F = g + this.H;
+            F = this.G + this.H;
         }
 
         private int HeuristicValue()
@@ -42,11 +42,15 @@ namespace PathFinder
             int dy = Math.Abs(position.Y - endPosition.Y);
             return (d * (dx + dy) + (d2 - 2 * d) * Math.Min(dx, dy)) * heuristicsMult;
         }
+        public override string ToString()
+        {
+            return position.ToString() +  "  F=" + F + " G=" + G + " H=" + H;
+        }
         public override int GetHashCode()
         {
             unchecked
             {
-                int result = 17;
+                int result = 33;
                 result = 37 * result + position.X;
                 result = 37 * result + position.Y;
                 return result;

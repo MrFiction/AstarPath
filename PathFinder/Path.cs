@@ -20,44 +20,28 @@ namespace PathFinder
         private void Path_Load(object sender, EventArgs e)
         {
             ComboBoxItems();
-           // comboBox2.Items.Add
-            
+
+        }
+        private void PathFinderDebug(int x, int y, PathFinderNodeType type)
+        {
+
+            grid2.DrawGrid(x, y, type);
         }
         public void RunPathFinder()
         {
             Node.startPosition = grid2.sPoint;
             Node.endPosition = grid2.ePoint;
-            Search aPath = new Search(grid2.grid,grid2.gridSize);
-            //if (!(mPathFinder is PathFinderFast))
-            //{
+            Search aPath = new Search(grid2.grid, grid2.gridSize);
+
             if (aPath != null)
-                // mPathFinder.PathFinderDebug -= new PathFinderDebugHandler(PathFinderDebug);
+                aPath.PathFinderDebug += new PathFinderDebugHandler(PathFinderDebug);
 
-                // mPathFinder = new PathFinderFast(PnlGUI.Matrix);
-                //mPathFinder.PathFinderDebug += new PathFinderDebugHandler(PathFinderDebug);
-                //}
-
-
-                //mPathFinder.Formula = PnlGUI.Formula;
-                //mPathFinder.Diagonals = ChkDiagonals.Checked;
-                //mPathFinder.HeavyDiagonals = ChkHeavyDiagonals.Checked;
-                // mPathFinder.HeuristicEstimate = (int)NumUpDownHeuristic.Value;
-                // mPathFinder.PunishChangeDirection = ChkPunishChangeDirection.Checked;
-                // mPathFinder.TieBreaker = ChkTieBraker.Checked;
-                // mPathFinder.SearchLimit = (int)NumSearchLimit.Value;
-                // mPathFinder.DebugProgress = ChlShowProgress.Checked;
-                //mPathFinder.ReopenCloseNodes = ChkReopenCloseNodes.Checked;
-                // mPathFinder.DebugFoundPath = true;
-
-                //List<PathFinderNode> path = mPathFinder.FindPath(PnlGUI.Start, PnlGUI.End);
-                //UpdateTimeLabel(mPathFinder.CompletedTime);
-            
             aPath.findPath();
             if (aPath.endNode == null)
+            {
                 MessageBox.Show("Path Not Found");
-
-           // if (BtnStartStop.Text == STOP)
-               // BtnStartStop_Click(null, EventArgs.Empty);
+            }
+           
         }
 
 
@@ -66,23 +50,19 @@ namespace PathFinder
             comboBox1.Items.Clear();
             comboBox1.DisplayMember = "Text";
             comboBox1.ValueMember = "Value";
-            for (int i = 30; i > 2; i--)
+            for (int i = 20; i > 2; i--)
             {
-                int height = (grid2.Size.Height)/i;
-                int width = (grid2.Size.Width)/i;
-                string m = String.Format("{0} X {1}  ({2})", width, height , width * height);
-                if ((grid2.Size.Height)%i == 0 && (grid2.Size.Width) % i == 0)
+                int height = (grid2.Size.Height) / i;
+                int width = (grid2.Size.Width) / i;
+                string m = String.Format("{0} X {1}  ({2})", width, height, width * height);
+                if ((grid2.Size.Height) % i == 0 && (grid2.Size.Width) % i == 0)
                 {
-                    comboBox1.Items.Add(new ComboBoxItem(m,i,width,height));
+                    comboBox1.Items.Add(new ComboBoxItem(m, i, width, height));
                 }
 
             }
             comboBox1.SelectedIndex = 0;
         }
-
-
-
-
 
 
         public Path()
@@ -97,7 +77,7 @@ namespace PathFinder
             int h = grid2.Size.Height;
             grid2.gridSize = 1;
             grid2.grid = new sbyte[w, h];
-            
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,12 +86,12 @@ namespace PathFinder
             var a = (ComboBoxItem)comboBox1.SelectedItem;
             grid2.gridSize = a.sqSize;
             grid2.ePoint = new System.Drawing.Point(grid2.Width / (2 * grid2.gridSize), grid2.Height / (2 * grid2.gridSize));
-            grid2.grid = new sbyte[a.w+1, a.h+1];
+            grid2.grid = new sbyte[a.w + 1, a.h + 1];
         }
         private class ComboBoxItem
         {
             public string text { get; set; }
-            
+
             public int sqSize { get; set; }
             public int w { get; set; }
 
@@ -132,10 +112,10 @@ namespace PathFinder
 
         private void grid2_Load(object sender, EventArgs e)
         {
-            
+
         }
 
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             grid2.drawMode = DrawModeSetup.Start;
@@ -165,7 +145,7 @@ namespace PathFinder
             Node.heuristicsMult = (int)numericUpDown1.Value;
         }
 
-        
+
     }
 
 

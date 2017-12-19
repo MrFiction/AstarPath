@@ -50,7 +50,7 @@ namespace PathFinder
             comboBox1.Items.Clear();
             comboBox1.DisplayMember = "Text";
             comboBox1.ValueMember = "Value";
-            for (int i = 20; i > 2; i--)
+            for (int i = 20; i > 3; i--)
             {
                 int height = (grid2.Size.Height) / i;
                 int width = (grid2.Size.Width) / i;

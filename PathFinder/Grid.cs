@@ -19,26 +19,21 @@ namespace PathFinder
 {
     public partial class Grid : UserControl
     {
-
-        public byte nodeWeight { get; set; }
+       
         public int gridSize { get; set; }
         public sbyte[,] grid { get; set; }
         public Point sPoint { get; set; }
         public Point ePoint { get; set; }
         public DrawModeSetup drawMode { get; set; }
-        //public byte nodeWeight { get; set; }
-        //int gridSize { get; set; }
-        //sbyte[,] grid { get; set; }
         public Grid()
         {
-            nodeWeight = 1;
-            gridSize = 30;
-            grid = new sbyte[900, 600];
+            gridSize = 20;
+            grid = new sbyte[450, 300];
             sPoint = Point.Empty;
             ePoint = Point.Empty;
             drawMode = DrawModeSetup.None;
             InitializeComponent();
-          //  ResetMatrix();
+            //ResetMatrix();
             
         }
         public void ResetMatrix()
@@ -51,68 +46,7 @@ namespace PathFinder
             ePoint = Point.Empty;
             this.Invalidate();
         }
-        
 
-        //public void DrawDebug(int parentX, int parentY, int x, int y, PathFinderNodeType type, int totalCost, int cost)
-        //{
-        //    Color c = Color.Empty;
-        //    switch (type)
-        //    {
-        //        case PathFinderNodeType.Close:
-        //            c = Color.DarkSlateBlue;
-        //            break;
-        //        case PathFinderNodeType.Current:
-        //            c = Color.Red;
-        //            break;
-        //        case PathFinderNodeType.End:
-        //            c = Color.Red;
-        //            break;
-        //        case PathFinderNodeType.Open:
-        //            c = Color.Green;
-        //            break;
-        //        case PathFinderNodeType.Path:
-        //            c = Color.Blue;
-        //            break;
-        //        case PathFinderNodeType.Start:
-        //            c = Color.Green;
-        //            break;
-        //    }
-        //    try
-        //    {
-        //        Graphics g = Graphics.FromHwnd(this.Handle);
-
-        //        System.Drawing.Rectangle internalRec = new System.Drawing.Rectangle((x * gridSize) + 2, (y * gridSize) + 2, gridSize - 5, gridSize - 4);
-
-        //        if (type == PathFinderNodeType.Open)
-        //            using (Brush brush = new SolidBrush(Color.FromArgb(255, 240, 240, 240)))
-        //                g.FillRectangle(brush, internalRec);
-
-        //        using (Pen pen = new Pen(c))
-        //            g.DrawRectangle(pen, internalRec);
-
-        //        if (type == PathFinderNodeType.Open)
-        //            g.DrawLine(Pens.Brown, (parentX * gridSize) + gridSize / 2, (parentY * gridSize) + gridSize / 2, (x * gridSize) + gridSize / 2, (y * gridSize) + gridSize / 2);
-
-        //        if (type == PathFinderNodeType.Path)
-        //            using (Brush brush = new SolidBrush(c))
-        //                g.FillRectangle(brush, internalRec);
-
-        //        if (totalCost != -1)
-        //        {
-        //            internalRec.Inflate(new Size(1, 1));
-        //            internalRec.Height /= 2;
-        //            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-        //            using (Font f = new System.Drawing.Font("Verdana", 0.29F * gridSize, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))))
-        //                g.DrawString(totalCost.ToString(), f, Brushes.Black, (RectangleF)internalRec);
-        //            internalRec.Y += internalRec.Height;
-        //            using (Font f = new System.Drawing.Font("Verdana", 0.29F * gridSize, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))))
-        //                g.DrawString(cost.ToString(), f, Brushes.Black, (RectangleF)internalRec);
-        //        }
-
-        //        g.Dispose();
-        //    }
-        //    catch (Exception) { }
-        //}
 
 
         public void DrawGrid(int x , int y, PathFinderNodeType type)
@@ -168,6 +102,9 @@ namespace PathFinder
                         {
                             case -1:
                                 color = Color.Black;
+                                break;
+                            case 0:
+                                color = Color.White;
                                 break;
                             case 1:
                                 color = Color.Green;
@@ -246,11 +183,7 @@ namespace PathFinder
                 case DrawModeSetup.Block:
                     grid[x, y] = -1;
                     break;
-                case DrawModeSetup.None:
-                    //this.Invalidate(new Rectangle(ePoint.X * gridSize, ePoint.Y * gridSize, gridSize, gridSize));
-                    //ePoint = new Point(x, y);
-                    grid[x, y] = 0;
-                    break;
+              
             }
             //e.Button = MouseButtons.None;
             this.Invalidate(new System.Drawing.Rectangle(x * gridSize, y * gridSize, gridSize, gridSize));

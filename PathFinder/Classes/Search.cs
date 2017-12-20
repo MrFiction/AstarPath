@@ -11,6 +11,7 @@ namespace PathFinder
 {
     public enum PathFinderNodeType
     {
+        Wall = -1,
         Start = 1,
         End = 2,
         Open = 4,
@@ -61,7 +62,8 @@ namespace PathFinder
                 sbyte[,] direction = new sbyte[8, 2] { { 0, -1 }, { 1, 1 }, { 0, 1 }, { 1, -1 }, { 1, 0 }, { -1, 1 }, { -1, 0 }, { -1, -1 } };
                 if (closedList.ContainsKey(endNode.GetHashCode()))
                 {
-                    displayPath(closedList[endNode.GetHashCode()]);
+                    endNode = closedList[endNode.GetHashCode()];
+                    displayPath(endNode);
                     return;
                 }
                 for (int i = 0; i < 8; i++)
@@ -104,6 +106,7 @@ namespace PathFinder
                     else
                     {
                         //Adds a new node
+                        grid[newNode.position.X, newNode.position.Y] =  4;
                         openList.Add(newNode.GetHashCode(), newNode);
                     }
                     if (!newNode.position.Equals(endNode.position))
@@ -119,6 +122,7 @@ namespace PathFinder
 
                 if (!(currentNode.position.Equals(startingNode.position) || currentNode.position.Equals(endNode.position)))
                 {
+                    grid[currentNode.position.X, currentNode.position.Y] = 8;
                     PathFinderDebug(currentNode.position.X, currentNode.position.Y, PathFinderNodeType.Close);
                 }
 
@@ -127,9 +131,14 @@ namespace PathFinder
         }
         public void displayPath(Node endNode)
         {
+            if (endNode.parentNode == null)
+            {
+                return;
+            }
             Node searchNode = endNode;
             while (searchNode.parentNode.parentNode != null)
             {
+                grid[searchNode.parentNode.position.X, searchNode.parentNode.position.Y] = 32; ;
                 PathFinderDebug(searchNode.parentNode.position.X, searchNode.parentNode.position.Y, PathFinderNodeType.Path);
                 searchNode = searchNode.parentNode;
             }

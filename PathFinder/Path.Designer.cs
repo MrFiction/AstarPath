@@ -55,7 +55,6 @@
             this.grid2.gridSize = 30;
             this.grid2.Location = new System.Drawing.Point(0, 50);
             this.grid2.Name = "grid2";
-            this.grid2.nodeWeight = ((byte)(1));
             this.grid2.Size = new System.Drawing.Size(900, 600);
             this.grid2.sPoint = new System.Drawing.Point(0, 0);
             this.grid2.TabIndex = 1;
@@ -193,7 +192,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Path";
             this.Load += new System.EventHandler(this.Path_Load);
-            this.Resize += new System.EventHandler(this.Path_Resize);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();

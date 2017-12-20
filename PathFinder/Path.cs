@@ -20,6 +20,7 @@ namespace PathFinder
         private void Path_Load(object sender, EventArgs e)
         {
             ComboBoxItems();
+            numericUpDown1.Value = 1;
 
         }
         private void PathFinderDebug(int x, int y, PathFinderNodeType type)
@@ -35,9 +36,9 @@ namespace PathFinder
 
             if (aPath != null)
                 aPath.PathFinderDebug += new PathFinderDebugHandler(PathFinderDebug);
-
+            grid2.gridSize = Search.cellSize;
             aPath.findPath();
-            if (aPath.endNode == null)
+            if (aPath.endNode.parentNode == null)
             {
                 MessageBox.Show("Path Not Found");
             }
@@ -50,7 +51,7 @@ namespace PathFinder
             comboBox1.Items.Clear();
             comboBox1.DisplayMember = "Text";
             comboBox1.ValueMember = "Value";
-            for (int i = 20; i > 3; i--)
+            for (int i = 30; i > 0; i--)
             {
                 int height = (grid2.Size.Height) / i;
                 int width = (grid2.Size.Width) / i;
@@ -70,15 +71,6 @@ namespace PathFinder
             InitializeComponent();
         }
 
-        private void Path_Resize(object sender, EventArgs e)
-        {
-            ComboBoxItems();
-            int w = grid2.Size.Width;
-            int h = grid2.Size.Height;
-            grid2.gridSize = 1;
-            grid2.grid = new sbyte[w, h];
-
-        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

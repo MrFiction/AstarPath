@@ -33,7 +33,7 @@ namespace PathFinder
             ePoint = Point.Empty;
             drawMode = DrawModeSetup.None;
             InitializeComponent();
-            //ResetMatrix();
+            ResetMatrix();
             
         }
         public void ResetMatrix()
@@ -80,6 +80,15 @@ namespace PathFinder
             using (Brush brush = new SolidBrush(c))
             {
                 g.FillRectangle(brush, inR);
+            }
+            c = Color.Black;
+            using (Pen pen = new Pen(c))
+            {
+                g.DrawLine(pen, x * gridSize, y * gridSize, x * gridSize + gridSize, y * gridSize);
+                g.DrawLine(pen, x * gridSize + gridSize, y * gridSize, x * gridSize + gridSize, y * gridSize + gridSize);
+                g.DrawLine(pen, x * gridSize, y * gridSize, x * gridSize, y * gridSize + gridSize);
+                g.DrawLine(pen, x * gridSize + gridSize, y * gridSize, x * gridSize + gridSize, y * gridSize + gridSize);   
+
             }
             g.Dispose();
 

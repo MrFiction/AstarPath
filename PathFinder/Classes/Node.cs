@@ -50,7 +50,9 @@ namespace PathFinder
         {
             unchecked
             {
-                int result = 33;
+                int result = 339;
+                result = (result + position.Y * 33) / 7;
+                result = (result + position.X * 33) / 7;
                 result = 37 * result + position.X;
                 result = 37 * result + position.Y;
                 return result;

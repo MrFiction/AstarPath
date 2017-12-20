@@ -63,6 +63,7 @@ namespace PathFinder
                 if (closedList.ContainsKey(endNode.GetHashCode()))
                 {
                     endNode = closedList[endNode.GetHashCode()];
+                    grid[endNode.position.X, endNode.position.Y] = 2;
                     displayPath(endNode);
                     return;
                 }

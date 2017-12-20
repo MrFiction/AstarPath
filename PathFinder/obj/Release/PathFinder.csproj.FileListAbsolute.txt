@@ -7,3 +7,13 @@ E:\JAVAStuff\AstarPath\PathFinder\obj\Release\PathFinder.Properties.Resources.re
 E:\JAVAStuff\AstarPath\PathFinder\obj\Release\PathFinder.csproj.GenerateResource.Cache
 E:\JAVAStuff\AstarPath\PathFinder\obj\Release\PathFinder.exe
 E:\JAVAStuff\AstarPath\PathFinder\obj\Release\PathFinder.pdb
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\bin\Release\PathFinder.exe.config
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\obj\Release\PathFinder.exe
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\obj\Release\PathFinder.pdb
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\bin\Release\PathFinder.exe
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\bin\Release\PathFinder.pdb
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\obj\Release\PathFinder.csprojResolveAssemblyReference.cache
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\obj\Release\PathFinder.Grid.resources
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\obj\Release\PathFinder.Path.resources
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\obj\Release\PathFinder.Properties.Resources.resources
+C:\Users\Dainius\Documents\Visual Studio 2017\Projects\PathFinder\PathFinder\obj\Release\PathFinder.csproj.GenerateResource.Cache
